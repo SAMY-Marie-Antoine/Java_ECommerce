@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<h:outputStylesheet library="css" name="table-style.css"></h:outputStylesheet>
+</h:head>
+<body>
+	<h1>INSCRIPTION</h1>
+	<h:form>
+
+		<h:inputHidden id="currentUserId" value="#{userBean.currentUserId}"></h:inputHidden>
+
+		<h:panelGrid columns="3" cellpadding="0" cellspacing="2">
+
+			<h:outputText value="Genre :"></h:outputText>
+			<h:selectOneRadio id="genre" value="#{userBean.genre}"
+				required="true" requiredMessage="Le genre est obligatoire">
+				<f:selectItem itemLabel="Madame" itemValue="MME"></f:selectItem>
+				<f:selectItem itemLabel="Mademoiselle" itemValue="MLLE"></f:selectItem>
+				<f:selectItem itemLabel="Monsieur" itemValue="M."></f:selectItem>
+			</h:selectOneRadio>
+			<h:message for="genre" style="color:red"></h:message>
+
+			<h:outputText value="Nom :"></h:outputText>
+			<h:inputText id="nom" size="20" value="#{userBean.nom}"
+				required="true" requiredMessage="Le Nom est obligatoire">
+			</h:inputText>
+			<h:message for="nom" style="color:red"></h:message>
+
+			<h:outputText value="Prenom :"></h:outputText>
+			<h:inputText id="prenom" size="20" value="#{userBean.prenom}"
+				required="true" requiredMessage="Le Prenom est obligatoire">
+			</h:inputText>
+			<h:message for="prenom" style="color:red"></h:message>
+
+			<h:outputText value="Email :"></h:outputText>
+			<h:inputText id="email" size="20" value="#{userBean.email}"
+				required="true" requiredMessage="Le Nom est obligatoire">
+			</h:inputText>
+			<h:message for="email" style="color:red"></h:message>
+
+			<h:outputText value="Mot de passe :"></h:outputText>
+			<h:inputSecret id="password" size="20" value="#{userBean.password}"
+				required="true" requiredMessage="Le Prénom est obligatoire">
+			</h:inputSecret>
+			<h:message for="password" style="color:red"></h:message>
+
+		</h:panelGrid>
+		<p></p>
+		<h:panelGrid columns="4" cellpadding="10" cellspacing="0">
+			<h:commandButton id="ajouterUtilisateur" value="Ajouter utilisateur"
+				action="#{userBean.addUser()}"></h:commandButton>
+			<h:commandButton id="modifierMDP" value="Modifier Mot de passe"
+				action="#{mdpBean.changeMdp(userBean.email)}"></h:commandButton>
+			<h:button id="retour" value="Retour" outcome="main.xhtml"></h:button>
+
+		</h:panelGrid>
+
+		<p>
+			<h:outputText value="#{userBean.messageSuccess}" style="color:green"></h:outputText>
+			<h:outputText value="#{userBean.messageError}" style="color:red"></h:outputText>
+		</p>
+
+	</h:form>
+</body>
+
+</html>
