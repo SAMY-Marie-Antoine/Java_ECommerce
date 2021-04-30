@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Bonjour et bienvenue sur notre site!!</title>
+</head>
+
+<body>
+	<ui:composition template="/resources/template/layout.xhtml">
+
+		<ui:define name="header">
+			<h:panelGrid columns="3" cellpadding="10" cellspacing="0">
+
+				<h:button id="SeDéconnecter" value="Déconnexion"
+					outcome="login.xhtml"></h:button>
+				<h:button id="afficherPanier" value="Mon Panier"
+					outcome="panier.xhtml"></h:button>
+				<h:button id="afficherHistorique" value="Mon historique de commandes" 
+					outcome="historique.xhtml"></h:button>
+					
+			<!-- <h:selectManyListbox id="ListCategories" value="#{userBean.profil}"></h:selectManyListbox> -->
+				<h:commandButton id="getCategories" value="Toutes nos catégories" 
+				action="#{achatBean.getCategories}"></h:commandButton>
+			</h:panelGrid>
+
+		</ui:define>
+		<ui:define name="content">
+			<h:form>
+		<h4>Nos articles </h4>
+		<h:dataTable value="#{achatBean.getArticles()}" var="u" styleClass="order-table"
+				headerClass="order-table-header"
+				rowClasses="order-table-odd-row, order-table-even-row">
+				
+				
+				<h:column>
+					<f:facet name="header">Nom</f:facet>
+					<h:outputText value="#{u.nom}"></h:outputText>
+				</h:column>
+			
+				<h:column>
+					<f:facet name="header">Description</f:facet>
+					<h:outputText value="#{u.description}"></h:outputText>
+				</h:column>
+			
+				<h:column>
+					<f:facet name="header">Prix</f:facet>
+					<h:outputText value="#{u.prix}"></h:outputText>
+				</h:column>
+			
+				<h:column>
+					<f:facet name="header">Stock</f:facet>
+					<h:outputText value="#{u.stock}"></h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Remise</f:facet>
+					<h:outputText value="#{u.remise}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Ctegorie</f:facet>
+					<h:outputText value="#{u.categorie_id}"></h:outputText>
+				</h:column>
+			
+				<h:column>
+					<f:facet name="header">Action</f:facet>
+					<h:commandLink value="Supprimer" action="#{userBean.remove(u)}"></h:commandLink>
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Action</f:facet>
+					<h:commandButton value="Supprimer" action="#{userBean.remove(u)}"></h:commandButton>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Action</f:facet>
+					<h:commandButton value="Modifier" action="#{userBean.modifierUser(u)}"></h:commandButton>
+				</h:column>
+			
+		</h:dataTable>
+	
+	</h:form>
+			<h:button id="retour" value="Retour" outcome="connexion.xhtml"></h:button>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+
+</html>

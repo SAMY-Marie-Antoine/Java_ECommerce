@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<h:outputStylesheet library="css" name="table-style.css"></h:outputStylesheet>
+</h:head>
+<body>
+	<h1>INSCRIPTION</h1>
+	<h:form>
+
+		<h:inputHidden id="currentUserId" value="#{userBean.currentUserId}"></h:inputHidden>
+
+		<h:panelGrid columns="3" cellpadding="0" cellspacing="2">
+
+			<h:outputText value="Nom :"></h:outputText>
+			<h:inputText id="nom" size="20" value="#{userBean.nom}"
+				required="true" requiredMessage="Le Nom est obligatoire">
+			</h:inputText>
+			<h:message for="nom" style="color:red"></h:message>
+
+			<h:outputText value="Prenom :"></h:outputText>
+			<h:inputText id="prenom" size="20" value="#{userBean.prenom}"
+				required="true" requiredMessage="Le Prenom est obligatoire">
+			</h:inputText>
+			<h:message for="prenom" style="color:red"></h:message>
+
+			<h:outputText value="Email :"></h:outputText>
+			<h:inputText id="email" size="20" value="#{userBean.email}"
+				required="true" requiredMessage="Le email est obligatoire">
+			</h:inputText>
+			<h:message for="email" style="color:red"></h:message>
+			
+			<h:outputText value="Telephone :"></h:outputText>
+			<h:inputText id="telephone" size="20" value="#{userBean.telephone}"
+				required="true" requiredMessage="Le telephone est obligatoire">
+			</h:inputText>
+			<h:message for="telephone" style="color:red"></h:message>
+			
+			<h:outputText value="Date de Naissance :"></h:outputText>
+			<h:inputText id="dateNaissance" size="20" value="#{userBean.dateNaissance}"
+				required="true" requiredMessage="Le date de naissance est obligatoire">
+			</h:inputText>
+			<h:message for="dateNaissance" style="color:red"></h:message>
+			
+			
+			
+			<h:outputText value="Numero :"></h:outputText>
+			<h:inputText id="numero" size="20" value="#{userBean.numero}"
+				required="true" requiredMessage="Le Numero est obligatoire">
+			</h:inputText>
+			<h:message for="numero" style="color:red"></h:message>
+			
+			<h:outputText value="Rue :"></h:outputText>
+			<h:inputText id="rue" size="20" value="#{userBean.rue}"
+				required="true" requiredMessage="La rue est obligatoire">
+			</h:inputText>
+			<h:message for="rue" style="color:red"></h:message>
+			
+			<h:outputText value="Code postal :"></h:outputText>
+			<h:inputText id="codePostal" size="20" value="#{userBean.codePostal}"
+				required="true" requiredMessage="Le Code postal est obligatoire">
+			</h:inputText>
+			<h:message for="codePostal" style="color:red"></h:message>
+			
+			<h:outputText value="Ville :"></h:outputText>
+			<h:inputText id="ville" size="20" value="#{userBean.ville}"
+				required="true" requiredMessage="La ville est obligatoire">
+			</h:inputText>
+			<h:message for="ville" style="color:red"></h:message>
+			
+			<br></br>
+			
+
+			<br></br>		
+			<h:outputText value="Nom :"></h:outputText>
+			<h:inputText id="nomProprietaire" size="20" value="#{userBean.nomProprietaire}"
+				required="true" requiredMessage="Le nom est obligatoire">
+			</h:inputText>
+			<h:message for="nomProprietaire" style="color:red"></h:message>
+			
+			<h:outputText value="Prenom :"></h:outputText>
+			<h:inputText id="prenomProprietaire" size="20" value="#{userBean.prenomProprietaire}"
+				required="true" requiredMessage="Le prénom est obligatoire">
+			</h:inputText>
+			<h:message for="prenomProprietaire" style="color:red"></h:message>
+			
+			<h:outputText value="Numero Carte :"></h:outputText>
+			<h:inputText id="numeroCarte" size="20" value="#{userBean.numeroCarte}"
+				required="true" requiredMessage="Le numero est obligatoire">
+			</h:inputText>
+			<h:message for="numeroCarte" style="color:red"></h:message>
+			
+			<h:outputText value="Date de validite :"></h:outputText>
+			<h:inputText id="dateValidite" size="20" value="#{userBean.dateValidite}"
+				required="true" requiredMessage="La date est obligatoire">
+			</h:inputText>
+			<h:message for="dateValidite" style="color:red"></h:message>
+			
+			<h:outputText value="Cryptogramme :"></h:outputText>
+			<h:inputText id="cryptogramme" size="10" value="#{userBean.cryptogramme}"
+				required="true" requiredMessage="Le crypto est obligatoire">
+			</h:inputText>
+			<h:message for="cryptogramme" style="color:red"></h:message>
+			<br></br>
+
+			
+			<br></br>
+			<br></br>
+			<h:outputText value="Mot de passe :"></h:outputText>
+			<h:inputSecret id="password" size="20" value="#{userBean.password}"
+				required="true" requiredMessage="Le Prénom est obligatoire">
+			</h:inputSecret>
+			<h:message for="password" style="color:red"></h:message>
+
+		</h:panelGrid>
+		<p></p>
+		<h:panelGrid columns="4" cellpadding="10" cellspacing="0">
+			<h:commandButton id="ajouterUtilisateur" value="Ajouter utilisateur"
+				action="#{userBean.addUser()}"></h:commandButton>
+			<h:commandButton id="modifierMDP" value="Modifier Mot de passe"
+				action="#{mdpBean.changeMdp(userBean.email)}"></h:commandButton>
+			<h:button id="retour" value="Retour" outcome="connexion.xhtml"></h:button>
+
+		</h:panelGrid>
+
+		<p>
+			<h:outputText value="#{userBean.messageSuccess}" style="color:green"></h:outputText>
+			<h:outputText value="#{userBean.messageError}" style="color:red"></h:outputText>
+		</p>
+
+	</h:form>
+</body>
+
+</html>
