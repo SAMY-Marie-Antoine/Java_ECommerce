@@ -1,10 +1,8 @@
 package fr.doranco.ecommerce.beans;
 
 import java.io.Serializable;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-
 import fr.doranco.ecommerce.control.IUserMetier;
 import fr.doranco.ecommerce.control.UserMetier;
 import fr.doranco.ecommerce.entity.User;
@@ -17,7 +15,6 @@ public class ChangePwdBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private final IUserMetier userMetier = new UserMetier();
-	
 	
 	@ManagedProperty(name = "password", value = "")
 	private String password;

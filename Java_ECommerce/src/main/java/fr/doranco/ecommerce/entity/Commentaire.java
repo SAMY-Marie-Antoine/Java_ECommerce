@@ -1,15 +1,21 @@
 package fr.doranco.ecommerce.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 
+
+@Entity
+@Table(name = "commentaire")
 public class Commentaire {
 	
 	
@@ -18,7 +24,7 @@ public class Commentaire {
 	@Column(name = "id", nullable = false)
 	private Integer id;
 	
-	@NotNull
+	@NotEmpty
 	@Column(name = "texte",length = 300, nullable = false)
 	@Size(min = 5, max = 300, message = "Le commentaire doit être compris entre 5 et 300 caractères")
 	private String texte;
@@ -41,12 +47,52 @@ public class Commentaire {
 	}
 
 	public Commentaire(
-			@NotNull @Size(min = 5, max = 300, message = "Le commentaire doit être compris entre 5 et 300 caractères") String texte,
+			@NotEmpty @Size(min = 5, max = 300, message = "Le commentaire doit être compris entre 5 et 300 caractères") String texte,
 			@NotNull Integer note, User user, User article) {
 		
 		this.texte = texte;
 		this.note = note;
 		this.user = user;
+		this.article = article;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getTexte() {
+		return texte;
+	}
+
+	public void setTexte(String texte) {
+		this.texte = texte;
+	}
+
+	public Integer getNote() {
+		return note;
+	}
+
+	public void setNote(Integer note) {
+		this.note = note;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getArticle() {
+		return article;
+	}
+
+	public void setArticle(User article) {
 		this.article = article;
 	}
 

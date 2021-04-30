@@ -23,6 +23,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
+
+
 @Entity
 //@Table(name = "user", schema = "db_hibernate")
 @Table(name = "user")
@@ -47,12 +49,10 @@ public class User {
 	@Column(name = "prenom", length = 25, nullable = false)
 	private String prenom;
 	
-	@NotNull
-	@Column(name = "actif", length = 1, nullable = false)
+	@Column(name = "actif", length = 1)
 	private Boolean isActif;
 	
-	@NotEmpty
-	@Column(name = "profil", length = 10, nullable = false)
+	@Column(name = "profil", length = 10)
 	private String profil;
 	
 	@NotEmpty
@@ -77,22 +77,19 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Adresse> adresses;
 	
-	@NotNull
-	@Column(name = "adresse_facturation_id", nullable = false)
+	@Column(name = "adresse_facturation_id")
 	private Integer AdresseFacturationId;
 	
-	@NotNull
-	@Column(name = "adresse_livraison_id", nullable = false)
+	@Column(name = "adresse_livraison_id")
 	private Integer AdresseLivraisonId;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Commande> commandes;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<CarteDePaiement> CartesDePaiement;
+	private List<CarteDePaiement> cartesDePaiement;
 	
-	@NotNull
-	@Column(name = "Cartes_paiement_default_id", nullable = false)
+	@Column(name = "Cartes_paiement_default_id")
 	private Integer CartesPaiementDefaultId;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
@@ -104,6 +101,7 @@ public class User {
 	
 	public User() {
 		adresses = new ArrayList<Adresse>();
+		cartesDePaiement = new ArrayList<CarteDePaiement>();
 	}
 
 	
@@ -112,10 +110,7 @@ public class User {
 	public User(String nom, String prenom, @NotNull Boolean isActif, String profil,
 			@Size(min = 5, max = 20, message = "Le Email doit être compris entre 5 et 20 caractères") String email,
 			@Size(min = 2, max = 15, message = "Le mot de passe doit être compris entre 2 et 15 caractères") byte[] password,
-			@NotNull Date dateNaissance, @NotNull String telephone, List<Adresse> adresses,
-			@NotNull Integer adresseFacturationId, @NotNull Integer adresseLivraisonId, List<Commande> commandes,
-			List<CarteDePaiement> cartesDePaiement, @NotNull Integer cartesPaiementDefaultId,
-			List<Commentaire> commentaires, List<ArticlePanier> panier) {
+			@NotNull Date dateNaissance, @NotNull String telephone) {
 		
 		this.nom = nom;
 		this.prenom = prenom;
@@ -125,14 +120,14 @@ public class User {
 		this.password = password;
 		this.dateNaissance = dateNaissance;
 		this.telephone = telephone;
-		this.adresses = adresses;
-		AdresseFacturationId = adresseFacturationId;
-		AdresseLivraisonId = adresseLivraisonId;
-		this.commandes = commandes;
-		CartesDePaiement = cartesDePaiement;
-		CartesPaiementDefaultId = cartesPaiementDefaultId;
-		this.commentaires = commentaires;
-		this.panier = panier;
+			
+		cartesDePaiement=new ArrayList<CarteDePaiement>();
+		adresses = new ArrayList<Adresse>();
+		commandes = new ArrayList<Commande>();
+		commentaires= new ArrayList<Commentaire>();
+		panier= new ArrayList<ArticlePanier>();
+		
+		
 	}
 
 
@@ -243,7 +238,7 @@ public class User {
 	}
 
 	public List<CarteDePaiement> getCartesDePaiement() {
-		return CartesDePaiement;
+		return cartesDePaiement;
 	}
 
 	public List<Commentaire> getCommentaires() {
@@ -254,15 +249,16 @@ public class User {
 		return panier;
 	}
 
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", isActif=" + isActif + ", profil=" + profil
-				+ ", email=" + email + ", password=" + password + ", dateNaissance=" + dateNaissance + ", telephone="
-				+ telephone + ", adresses=" + adresses + ", AdresseFacturationId=" + AdresseFacturationId
-				+ ", AdresseLivraisonId=" + AdresseLivraisonId + ", commandes=" + commandes + ", CartesDePaiement="
-				+ CartesDePaiement + ", CartesPaiementDefaultId=" + CartesPaiementDefaultId + ", commentaires="
-				+ commentaires + ", panier=" + panier + "]";
-	}	
+				+ ", email=" + email + ", password=" + password + ", dateNaissance=" + dateNaissance
+				+ ", telephone=" + telephone + ", adresses=" + adresses + ", commandes=" + commandes
+				+ ", cartesDePaiement=" + cartesDePaiement + ", commentaires=" + commentaires + ", panier=" + panier
+				+ "]";
+	}
 
+	
 	
 }

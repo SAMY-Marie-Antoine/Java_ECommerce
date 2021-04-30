@@ -9,10 +9,10 @@ import javax.faces.bean.ManagedProperty;
 
 import fr.doranco.ecommerce.control.IUserMetier;
 import fr.doranco.ecommerce.control.UserMetier;
-import fr.doranco.ecommerce.entity.Adresse;
 import fr.doranco.ecommerce.entity.User;
-import fr.doranco.ecommerce.model.AbstractEntityDao;
-
+import fr.doranco.ecommerce.entity.dto.AdresseDto;
+import fr.doranco.ecommerce.entity.dto.CartePaiementDto;
+import fr.doranco.ecommerce.entity.dto.UserDto;
 
 
 @ManagedBean(name = "userBean")
@@ -24,24 +24,54 @@ public class UserBean implements Serializable {
 	@ManagedProperty(name = "idUser", value = "")
 	private String idUser;
 
-	@ManagedProperty(name = "genre", value = "")
-	private String genre;
-
-	@ManagedProperty(name = "nom", value = "")
+	@ManagedProperty(name = "nom", value = "chebbat")
 	private String nom;
 
-	@ManagedProperty(name = "prenom", value = "")
+	@ManagedProperty(name = "prenom", value = "nassima")
 	private String prenom;
 	
-	@ManagedProperty(name = "profil", value = "")
+	@ManagedProperty(name = "profil", value = "Client")
 	private String profil;
 
-	@ManagedProperty(name = "email", value = "")
+	@ManagedProperty(name = "email", value = "nassima@gmail.com")
 	private String email;
 
-	@ManagedProperty(name = "password", value = "")
+	@ManagedProperty(name = "password", value = "nassima")
 	private String password;
+	
+	@ManagedProperty(name = "telephone", value = "02153624")
+	private String telephone;
+	
+	@ManagedProperty(name = "dateNaissance", value = "05/02/2015")
+	private String dateNaissance;
+	
+	@ManagedProperty(name = "numero", value ="2")
+	private String numero;
 
+	@ManagedProperty(name = "rue", value = "rue de paris")
+	private String rue;
+	
+	@ManagedProperty(name = "ville", value = "Paris")
+	private String ville;
+	
+	@ManagedProperty(name = "codePostal", value = "75000")
+	private String codePostal;
+	
+	@ManagedProperty(name = "nomProprietaire", value = "chebbatcccc")
+	private String nomProprietaire;
+	
+	@ManagedProperty(name = "prenomProprietaire", value = "nassimacccc")
+	private String prenomProprietaire;
+	
+	@ManagedProperty(name = "numeroCarte", value = "1201542877777777")
+	private String numeroCarte;
+	
+	@ManagedProperty(name = "dateValidite", value = "02/12/2012")
+	private String dateValidite;
+	
+	@ManagedProperty(name = "cryptogramme", value = "125")
+	private String cryptogramme;
+	
 	@ManagedProperty(name = "messageSuccess", value = "")
 	private static String messageSuccess;
 
@@ -51,31 +81,52 @@ public class UserBean implements Serializable {
 	@ManagedProperty(name = "currentUserId", value = "")
 	private String currentUserId;
 	
-	
 	static {
 		messageSuccess = "";
 		messageError = "";
 	}
 
+	
 	public UserBean() {
 	}
 
 	public String addUser() {
-		User user = new User();
-		user.setGenre(genre);
-		user.setNom(nom);
-		user.setPrenom(prenom);
-		user.setEmail(email);
-		user.setPassword(password);
+		
+		UserDto userDto = new UserDto();
+		AdresseDto adresseDto=new AdresseDto();
+		CartePaiementDto cartePaiementDto =new CartePaiementDto();
+		
+		
+		userDto.setNom(nom);
+		userDto.setPrenom(prenom);
+		userDto.setEmail(email);
+		userDto.setDateNaissance(dateNaissance);
+		userDto.setTelephone(telephone);
+		userDto.setPassword(password);
+		
+		adresseDto.setNumero(numero);
+		adresseDto.setRue(rue);
+		adresseDto.setCodePostal(codePostal);
+		adresseDto.setVille(ville);
+		
+		cartePaiementDto.setNomProprietaire(nomProprietaire);
+		cartePaiementDto.setPrenomProprietaire(prenomProprietaire);
+		cartePaiementDto.setNumero(numero);
+		cartePaiementDto.setDateValidite(dateValidite);
+		cartePaiementDto.setCryptogramme(cryptogramme);
+		
+		userDto.getAdresses().add(adresseDto);
+		userDto.getCartesDePaiementDto().add(cartePaiementDto);
 		
 		try {
-			userMetier.add(user);
+			userMetier.addUser(userDto);
 			messageSuccess = "Inscription effectuée avec succès !";
+			return "";
 		} catch (Exception e) {
-			System.out.println(e);
-			messageError = "Erreur lors de l'inscription de l'utilisateur !\n" + e.getMessage();
+			e.printStackTrace();
+			return "Erreur : " + e.getMessage();
 		}
-		return "";
+		
 	}
 
 	public List<User> getUsers() {
@@ -87,9 +138,9 @@ public class UserBean implements Serializable {
 		return new ArrayList<User>();
 	}
 
-	public String remove(User user) {
+	public String remove(Integer id) {
 		try {
-			userMetier.remove(user);
+			userMetier.removeUser(id);
 		} catch (Exception e) {
 			messageError = "Erreur lors de la suppression de l'utilisateur !\n" + e.getMessage();
 		}
@@ -101,7 +152,6 @@ public class UserBean implements Serializable {
 			
 			idUser = String.valueOf(user.getId());
 			currentUserId = idUser;
-			genre = user.getGenre();
 			prenom = user.getPrenom();
 			nom = user.getNom();
 			email = user.getEmail();
@@ -111,25 +161,24 @@ public class UserBean implements Serializable {
 		return "";
 	}
 
-	public String updateUser() {
-		try {
-			
-
-			User user = userMetier.getUserById(Integer.parseInt(currentUserId));
-			user.setGenre(genre);
-			user.setNom(nom);
-			user.setPrenom(prenom);
-			user.setEmail(email);
-			user.setPassword(password);
-
-			userMetier.update(user);;
-			messageSuccess = "la mise à jour effectuée avec succès !";
-		} catch (Exception e) {
-			System.out.println(e);
-			messageError = "Erreur lors de la mise a jour  de l'utilisateur !\n" + e.getMessage();
-		}
-		return "";
-	}
+//	public String updateUser(Integer id) {
+//		try {
+//			
+//		
+//			UserDto userDto = userMetier.getUserById(id);
+//			userDto.setNom(nom);
+//			userDto.setPrenom(prenom);
+//			userDto.setEmail(email);
+//			userDto.setPassword(password);
+//
+//			userMetier.updateUser(userDto);;
+//			messageSuccess = "la mise à jour effectuée avec succès !";
+//		} catch (Exception e) {
+//			System.out.println(e);
+//			messageError = "Erreur lors de la mise a jour  de l'utilisateur !\n" + e.getMessage();
+//		}
+//		return "";
+//	}
 
 	public String getIdUser() {
 		return idUser;
@@ -137,14 +186,6 @@ public class UserBean implements Serializable {
 
 	public void setIdUser(String idUser) {
 		this.idUser = idUser;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
 	}
 
 	public String getNom() {
@@ -163,6 +204,14 @@ public class UserBean implements Serializable {
 		this.prenom = prenom;
 	}
 
+	public String getProfil() {
+		return profil;
+	}
+
+	public void setProfil(String profil) {
+		this.profil = profil;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -178,17 +227,95 @@ public class UserBean implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
-	public String getCurrentUserId() {
-		return currentUserId;
+
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setCurrentUserId(String currentUserId) {
-		this.currentUserId = currentUserId;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
+	public String getDateNaissance() {
+		return dateNaissance;
+	}
+
+	public void setDateNaissance(String dateNaissance) {
+		this.dateNaissance = dateNaissance;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getRue() {
+		return rue;
+	}
+
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+	
+	public String getNomProprietaire() {
+		return nomProprietaire;
+	}
+
+	public void setNomProprietaire(String nomProprietaire) {
+		this.nomProprietaire = nomProprietaire;
+	}
+
+	public String getPrenomProprietaire() {
+		return prenomProprietaire;
+	}
+
+	public void setPrenomProprietaire(String prenomProprietaire) {
+		this.prenomProprietaire = prenomProprietaire;
+	}
+
+	public String getNumeroCarte() {
+		return numeroCarte;
+	}
+
+	public void setNumeroCarte(String numeroCarte) {
+		this.numeroCarte = numeroCarte;
+	}
+
+	public String getDateValidite() {
+		return dateValidite;
+	}
+
+	public void setDateValidite(String dateValidite) {
+		this.dateValidite = dateValidite;
+	}
+
+	public String getCryptogramme() {
+		return cryptogramme;
+	}
+
+	public void setCryptogramme(String cryptogramme) {
+		this.cryptogramme = cryptogramme;
+	}
+	
 
 	public String getMessageSuccess() {
 		return messageSuccess;
@@ -205,5 +332,14 @@ public class UserBean implements Serializable {
 	public void setMessageError(String messageError) {
 		UserBean.messageError = messageError;
 	}
+
+	public String getCurrentUserId() {
+		return currentUserId;
+	}
+
+	public void setCurrentUserId(String currentUserId) {
+		this.currentUserId = currentUserId;
+	}
+
 
 }

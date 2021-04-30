@@ -25,12 +25,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="commande")
-@NamedQueries({
-	@NamedQuery(name="Commande.findAll", query="FROM Commande c"),
-	@NamedQuery(name="Commande.findById",query="FROM Commande c WHERE c.id = :id"),
-	@NamedQuery(name="Commande.findByDate",query="FROM Commande c WHERE c.date_creation = :date_creation"),
-	@NamedQuery(name="Commande.findByUserId",query="FROM Commande c WHERE c.user_id = :user_id")
-})
 
 public class Commande implements Serializable{
 

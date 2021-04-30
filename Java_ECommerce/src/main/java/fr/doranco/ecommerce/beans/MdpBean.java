@@ -68,7 +68,7 @@ public class MdpBean implements Serializable {
 					return "";
 				}
 				user.setPassword(nouveauMdp);
-				userMetier.update((fr.doranco.ecommerce.entity.User) user);
+				//userMetier.updateUser((fr.doranco.ecommerce.entity.User) user);
 				this.messageColor = "green";
 				context.addMessage(null, new FacesMessage("Mot de passe modifié avec succès !"));
 				return "";

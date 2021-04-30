@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,6 +22,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "article")
+//@NamedQueries({
+//	
+//	@NamedQuery(name = "article.findByCategorie", query = "FROM Article u WHERE u.categorie_id = :categorieId")	
+//})
 public class Article implements Serializable{
 
 	
@@ -50,7 +56,7 @@ public class Article implements Serializable{
 	@Column(name = "stock", length = 25, nullable = false)
 	private Integer stock;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article", fetch = FetchType.LAZY)
 	private List<Commentaire> commentaires;
 	
 	@ManyToOne
@@ -64,7 +70,7 @@ public class Article implements Serializable{
 
 
 	public Article(String nom, String description, @NotNull Integer prix, @NotNull Float remise, @NotNull Integer stock,
-			List<Commentaire> commentaires, Categorie categorie) {
+			List<Commentaire> commentaires,Categorie categorie) {
 		super();
 		this.nom = nom;
 		this.description = description;
@@ -146,30 +152,13 @@ public class Article implements Serializable{
 	}
 
 
-	public Categorie getCategorie() {
-		return categorie;
-	}
-
-
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", remise="
-				+ remise + ", stock=" + stock + ", commentaires=" + commentaires + ", categorie=" + categorie + "]";
+				+ remise + ", stock=" + stock + ", commentaires=" + commentaires + "]";
 	}
 
 
-
-	
-	
-	
-	
-	
-	
-	
+		
 	
 }

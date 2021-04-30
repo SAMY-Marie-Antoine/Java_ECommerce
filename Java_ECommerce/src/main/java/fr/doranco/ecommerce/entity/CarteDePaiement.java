@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -16,6 +18,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Entity
+@Table(name = "carte_de_paiement")
 public class CarteDePaiement {
 
 	@Id
@@ -33,7 +37,7 @@ public class CarteDePaiement {
 	
 	@NotEmpty
 	@Column(name = "numero", nullable = false)
-	@Size(min = 16, max = 16, message = "Le numéro de carte doit contenir 16 chiffre!!")
+	//@Size(min = 16, max = 16, message = "Le numéro de carte doit contenir 16 chiffre!!")
 	private byte[] numero;
 	
 	@NotNull
@@ -43,7 +47,7 @@ public class CarteDePaiement {
 	
 	@NotEmpty
 	@Column(name = "cryptogramme", nullable = false)
-	@Size(min = 3, max = 3, message = "Le numéro de carte doit contenir 16 chiffre!!")
+	//@Size(min = 3, max = 3, message = "Le numéro de cryptogramme doit contenir 3 chiffre!!")
 	private byte[] cryptogramme;
 	
 	@ManyToOne
