@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import fr.doranco.ecommerce.entity.Article;
-import fr.doranco.ecommerce.entity.Categorie;
 
 public class ArticleDao extends AbstractEntityDao<Article> implements IArticleDao {
 
@@ -27,9 +26,9 @@ public class ArticleDao extends AbstractEntityDao<Article> implements IArticleDa
 		if (session != null && session.isOpen())
 			session.close();
 		return articles;
+
 		
 	}
-
 
 	@Override
 	public List<Article> getArticles() throws Exception {

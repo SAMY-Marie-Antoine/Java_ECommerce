@@ -5,14 +5,13 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import fr.doranco.ecommerce.control.IUserMetier;
 import fr.doranco.ecommerce.control.UserMetier;
 import fr.doranco.ecommerce.entity.User;
 
 
-@ManagedBean(name = "loginBean")
+@ManagedBean(name ="loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
 
@@ -43,34 +42,15 @@ public class LoginBean implements Serializable {
 	public String seConnecter() {
 		initializeMessages();
 		User user;
-		String url="achats.xhtml";
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		
 		try {
 			user = userMetier.seConnecter(email, password);
 			if (user != null) {
 				messageSuccess = "Vous êtes bien connecté.";
-				 ctx.getExternalContext().redirect(url);
 				return "";
 			}
 			messageError = "Email et/ou Password incorrects ! Veuillez réessayer.";
 		} catch (Exception e) {
 			messageError = "Désolé ! Erreur technique, connexion impossible !\n Veuillez réessayer plus tard.\n" + e.getMessage();
-			e.printStackTrace();
-		}
-		return "";
-	}
-	
-	public String seDeConnecter() {
-		initializeMessages();
-		try {
-			userMetier.seDeConnecter();
-			
-				messageSuccess = "Vous êtes bien déconnecté.";
-				return "";
-			
-		} catch (Exception e) {
-			messageError = "Désolé ! Erreur technique, déconnexion impossible !\n Veuillez réessayer plus tard.\n" + e.getMessage();
 			e.printStackTrace();
 		}
 		return "";

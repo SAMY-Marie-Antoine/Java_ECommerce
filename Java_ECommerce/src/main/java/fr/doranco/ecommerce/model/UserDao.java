@@ -76,15 +76,5 @@ public class UserDao extends AbstractEntityDao<User> implements IUserDao {
 		return null;
 	}
 
-
-	@Override
-	public void getUserConnexion() throws Exception {
-		Session session = HibernateConnector.getSession();
-		
-			if (session != null && session.isOpen())
-				session.close();
-		}
-	
-
 }
 

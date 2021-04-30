@@ -20,6 +20,4 @@ public interface IUserDao extends IEntityDao<User>{
 	Map<String, List<User>> getUsersByVille() throws Exception;
 
 	List<User> getUsersWithNoCommand() throws Exception;
-
-	void getUserConnexion() throws Exception;
 }

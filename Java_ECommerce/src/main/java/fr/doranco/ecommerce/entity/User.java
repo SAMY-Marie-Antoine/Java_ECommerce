@@ -26,7 +26,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-//@Table(name = "user", schema = "db_hibernate")
 @Table(name = "user")
 @NamedQueries({
 	@NamedQuery(name = "User.findAll", query = "FROM User u"),
@@ -49,8 +48,10 @@ public class User {
 	@Column(name = "prenom", length = 25, nullable = false)
 	private String prenom;
 	
+	
 	@Column(name = "actif", length = 1)
 	private Boolean isActif;
+	
 	
 	@Column(name = "profil", length = 10)
 	private String profil;
@@ -62,11 +63,8 @@ public class User {
 	
 	@NotEmpty
 	@Column(name = "password", nullable = false)
+	@Size(min = 2, max = 15, message = "Le mot de passe doit être compris entre 2 et 15 caractères")
 	private byte[] password;
-	
-	@NotEmpty
-	@Column(name = "cle_cryptage", nullable = false)
-	private byte[] cleCryptage;
 	
 	@NotNull
 	@Column(name = "date_naissance", nullable = false)
@@ -80,10 +78,12 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Adresse> adresses;
 	
-	@Column(name = "adresse_facturation_id")
+	
+	@Column(name = "adresse_facturation_id", nullable = true)
 	private Integer AdresseFacturationId;
 	
-	@Column(name = "adresse_livraison_id")
+	
+	@Column(name = "adresse_livraison_id", nullable = true)
 	private Integer AdresseLivraisonId;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
@@ -92,7 +92,8 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<CarteDePaiement> cartesDePaiement;
 	
-	@Column(name = "Cartes_paiement_default_id")
+
+	@Column(name = "Cartes_paiement_default_id", nullable = true)
 	private Integer CartesPaiementDefaultId;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
@@ -191,20 +192,6 @@ public class User {
 	public void setPassword(byte[] password) {
 		this.password = password;
 	}
-
-	public byte[] getCleCryptage() {
-		return cleCryptage;
-	}
-
-
-
-
-	public void setCleCryptage(byte[] cleCryptage) {
-		this.cleCryptage = cleCryptage;
-	}
-
-
-
 
 	public Date getDateNaissance() {
 		return dateNaissance;

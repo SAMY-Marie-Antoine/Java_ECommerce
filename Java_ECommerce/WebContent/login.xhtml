@@ -16,24 +16,30 @@
 				<h:panelGrid columns="3" cellpadding="0" cellspacing="2">
 					<h:outputText value="Email :"></h:outputText>
 					<h:inputText id="email" label="Email :" size="20" value="#{loginBean.email}"
-									required="true" requiredMessage="email est obligatoire">
+									required="true" requiredMessage="Le Nom est obligatoire">
 					</h:inputText>
 					<h:message for="email" style="color:red"></h:message>
 
 					<h:outputText value="Mot de passe :"></h:outputText>
 					<h:inputSecret id="password" label="Mot de passe :" size="20" value="#{loginBean.password}"
-									required="true" requiredMessage="password est obligatoire">
+									required="true" requiredMessage="Le Prénom est obligatoire">
 					</h:inputSecret>
 					<h:message for="password" style="color:red"></h:message>
 
 				</h:panelGrid>
 				<p></p>
+				<h:outputText value="Profil :"></h:outputText>
+			<h:selectOneMenu id="Profil" value="#{userBean.profil}"
+								required="true" requiredMessage="Le profil est obligatoire">
+						<f:selectItem itemLabel="Admin" itemValue="ADMIN"></f:selectItem>
+						<f:selectItem itemLabel="Client" itemValue="CLIENT"></f:selectItem>
+						<f:selectItem itemLabel="Magasinier" itemValue="MAGASINIER"></f:selectItem>
+			</h:selectOneMenu >
+			<h:message for="Profil" style="color:red"></h:message>
 				<h:panelGrid columns="3" cellpadding="10" cellspacing="0">
-					<h:commandButton id="seConnecter" value="Se Connecter"  action="#{loginBean.seConnecter()}">
+					<h:commandButton id="seConnecter" value="Se Connecter" action="#{loginBean.seConnecter()}"></h:commandButton>
 					<h:button id="retour" value="Retour" outcome="connexion.xhtml"></h:button>
-					</h:commandButton>
 				</h:panelGrid>
-				
 			</h:form>
 			<p>
 				<h:outputText value="#{loginBean.messageSuccess}" style="color:green"></h:outputText>

@@ -48,7 +48,7 @@ public class UserBean implements Serializable {
 	@ManagedProperty(name = "numero", value ="2")
 	private String numero;
 
-	@ManagedProperty(name = "rue", value = "rue de paris")
+	@ManagedProperty(name = "rue", value = "rue")
 	private String rue;
 	
 	@ManagedProperty(name = "ville", value = "Paris")
@@ -63,7 +63,7 @@ public class UserBean implements Serializable {
 	@ManagedProperty(name = "prenomProprietaire", value = "nassimacccc")
 	private String prenomProprietaire;
 	
-	@ManagedProperty(name = "numeroCarte", value = "1201542877777777")
+	@ManagedProperty(name = "numeroCarte", value = "12015428")
 	private String numeroCarte;
 	
 	@ManagedProperty(name = "dateValidite", value = "02/12/2012")
@@ -126,7 +126,6 @@ public class UserBean implements Serializable {
 			e.printStackTrace();
 			return "Erreur : " + e.getMessage();
 		}
-		
 	}
 
 	public List<User> getUsers() {

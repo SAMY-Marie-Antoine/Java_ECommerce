@@ -18,23 +18,23 @@
 		<ui:define name="header">
 			<h:panelGrid columns="3" cellpadding="10" cellspacing="0">
 
-
-				<h:commandButton id="seDeConnecter" value="Se Deconnecter" action="#{loginBean.seDeConnecter()}"></h:commandButton>
+				<h:button id="SeDéconnecter" value="Déconnexion"
+					outcome="login.xhtml"></h:button>
 				<h:button id="afficherPanier" value="Mon Panier"
 					outcome="panier.xhtml"></h:button>
-<!-- 				<h:button id="afficherHistorique" value="Mon historique de commandes"  -->
-<!-- 					outcome="historique.xhtml"></h:button> -->
+				<h:button id="afficherHistorique"value="Mon historique de commandes" 
+					outcome="historique.xhtml"></h:button>
 					
 			<!-- <h:selectManyListbox id="ListCategories" value="#{userBean.profil}"></h:selectManyListbox> -->
 				<h:commandButton id="getCategories" value="Toutes nos catégories" 
-				action="#{achatBean.getCategories()}"></h:commandButton>
+				action="#{achatBean.getCategories}"></h:commandButton>
 			</h:panelGrid>
 
 		</ui:define>
 		<ui:define name="content">
 			<h:form>
 		<h4>Nos articles </h4>
-		<h:dataTable action="#{achatBean.getArticlesByCategorie()}" var="u" styleClass="order-table"
+		<h:dataTable value="#{achatBean.getArticles()}" var="u" styleClass="order-table"
 				headerClass="order-table-header"
 				rowClasses="order-table-odd-row, order-table-even-row">
 				

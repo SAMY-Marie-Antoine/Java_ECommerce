@@ -29,8 +29,6 @@ public class AchatBean implements Serializable{
 	@ManagedProperty(name = "messageError", value = "")
 	private static String messageError;
 	
-	
-
 	static {
 		messageSuccess = "";
 		messageError = "";
@@ -60,21 +58,7 @@ public class AchatBean implements Serializable{
 		return new ArrayList<Article>();
 	}
 	
-	public  String getMessageSuccess() {
-		return messageSuccess;
-	}
-
-	public  void setMessageSuccess(String messageSuccess) {
-		AchatBean.messageSuccess = messageSuccess;
-	}
-
-	public  String getMessageError() {
-		return messageError;
-	}
-
-	public  void setMessageError(String messageError) {
-		AchatBean.messageError = messageError;
-	}
+	
 	
 
 }

@@ -47,7 +47,7 @@ public class CarteDePaiement {
 	
 	@NotEmpty
 	@Column(name = "cryptogramme", nullable = false)
-	//@Size(min = 3, max = 3, message = "Le numéro de cryptogramme doit contenir 3 chiffre!!")
+	//@Size(min = 3, max = 3, message = "Le numéro de carte doit contenir 3 chiffre!!")
 	private byte[] cryptogramme;
 	
 	@ManyToOne
@@ -61,7 +61,7 @@ public class CarteDePaiement {
 	public CarteDePaiement(String nomProprietaire, String prenomProprietaire,
 			@Size(min = 16, max = 16, message = "Le numéro de carte doit contenir 16 chiffre!!") byte[] numero,
 			@NotNull Date dateValidite,
-			@Size(min = 3, max = 3, message = "Le numéro de carte doit contenir 16 chiffre!!") byte[] cryptogramme,
+			@Size(min = 3, max = 3, message = "Le numéro de carte doit contenir 3 chiffre!!") byte[] cryptogramme,
 			User user) {
 		
 		this.nomProprietaire = nomProprietaire;

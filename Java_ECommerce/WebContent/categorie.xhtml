@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<h:outputStylesheet library="css" name="table-style.css"></h:outputStylesheet>
+</h:head>
+<body>
+	<h1>Gestion de stock</h1>
+	<h:form>
+
+		<h3>Ajouter une catégorie</h3>
+		<h:panelGrid columns="3" cellpadding="0" cellspacing="2">
+
+			<h:outputText value="Nom :"></h:outputText>
+			<h:inputText id="nom" size="20" value="#{categorieBean.nom}"
+				required="true" requiredMessage="Le Nom est obligatoire">
+			</h:inputText>
+			<h:message for="nom" style="color:red"></h:message>
+			
+			<h:outputText value="Remise :"></h:outputText>
+			<h:inputText id="remise" size="20" value="#{categorieBean.remise}">
+			</h:inputText>
+			<h:message for="remise" style="color:red"></h:message>
+
+		</h:panelGrid>
+
+		<h:commandButton id="ajouterCategorie" value="Ajouter"
+			action="#{categorieBean.addCategorie()}"></h:commandButton>
+
+		<h:button id="retour" value="Retour" outcome="connexion.xhtml"></h:button>
+
+		<p>
+			<h:outputText value="#{categorieBean.messageSuccess}" style="color:green"></h:outputText>
+			<h:outputText value="#{categorieBean.messageError}" style="color:red"></h:outputText>
+		</p>
+
+	</h:form>
+</body>
+
+</html>

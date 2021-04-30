@@ -39,5 +39,47 @@ public class Categorie {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "categorie", fetch = FetchType.LAZY)
 	private List<Article> articles;
+	
+	
+	
+	public Categorie() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Categorie(String nom) {
+		
+		this.nom = nom;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public Float getRemise() {
+		return remise;
+	}
+
+	public void setRemise(Float remise) {
+		this.remise = remise;
+	}
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+	
+	
+	
 
 }

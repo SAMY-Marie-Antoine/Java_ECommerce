@@ -2,8 +2,8 @@ package fr.doranco.ecommerce.control;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import fr.doranco.ecommerce.entity.Adresse;
 import fr.doranco.ecommerce.entity.CarteDePaiement;
@@ -18,32 +18,20 @@ import fr.doranco.enums.CryptageAlgorithm;
 import fr.doranco.metier.cryptage.algo.CryptageDES;
 import fr.doranco.metier.cryptage.keys.GenerateKey;
 
+
 public class UserMetier implements IUserMetier {
 
 	private final IUserDao userDao = new UserDao();
-	
+
 	@Override
 	public User seConnecter(String email, String password) throws Exception {
 		User user = userDao.getUserByEmail(email);
-		
-		byte[] cleCryptage = user.getCleCryptage();
-		SecretKey secretKey = new SecretKeySpec(cleCryptage, CryptageAlgorithm.DES.toString());
-		String passwordDecrypte = CryptageDES.decrypt(user.getPassword(), secretKey);
-		
-				
-		if (user != null && (passwordDecrypte.equals(password)))
-		 {
+		if (user != null && user.getPassword().equals(password)) {
 			return user;
 		}
 		return null;
 	}
 
-	@Override
-	public void seDeConnecter() throws Exception {
-		 userDao.getUserConnexion();
-		}
-	
-	
 	@Override
 	public List<User> getUsers() throws Exception {
 		List<User> users = userDao.getUsers();
@@ -77,8 +65,6 @@ public class UserMetier implements IUserMetier {
 		byte[] cryptedPassword = CryptageDES.encrypt(userDto.getPassword(), secretKey);
 		user.setPassword(cryptedPassword);
 		
-		byte[] cleCryptage = secretKey.getEncoded();
-		user.setCleCryptage(cleCryptage);
 		
 		Adresse adresse = new Adresse();
 		AdresseDto adresseDto = userDto.getAdresses().get(0);

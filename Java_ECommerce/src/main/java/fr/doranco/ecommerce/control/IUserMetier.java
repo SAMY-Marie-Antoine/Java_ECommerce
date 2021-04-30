@@ -17,5 +17,4 @@ public interface IUserMetier {
 	List<User> getUsers() throws Exception;
 	void removeUser(Integer id) throws Exception;
 	void updateUser (UserDto userDto) throws Exception;
-	void seDeConnecter() throws Exception;
 }

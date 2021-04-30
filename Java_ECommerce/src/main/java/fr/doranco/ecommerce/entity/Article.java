@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -37,19 +35,19 @@ public class Article implements Serializable{
 	private Integer id;
 	
 	@NotEmpty
-	@Column(name = "nom", length = 25, nullable = false)
+	@Column(name = "nom", length = 25)
 	private String nom;
 	
-	@NotEmpty
-	@Column(name = "description", length = 25, nullable = false)
+	
+	@Column(name = "description", length = 25)
 	private String description;
 	
 	@NotNull
-	@Column(name = "prix", length = 25, nullable = false)
+	@Column(name = "prix", length = 25)
 	private Integer prix;
 	
-	@NotNull  
-	@Column(name = "remise", nullable = false)
+	  
+	@Column(name = "remise")
 	private Float remise;
 	
 	@NotNull
@@ -59,9 +57,10 @@ public class Article implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article", fetch = FetchType.LAZY)
 	private List<Commentaire> commentaires;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "categorie_id", nullable = false)
-	private Categorie categorie;
+	private Categorie categorieId;
 
 	
 	public Article() {
@@ -70,15 +69,15 @@ public class Article implements Serializable{
 
 
 	public Article(String nom, String description, @NotNull Integer prix, @NotNull Float remise, @NotNull Integer stock,
-			List<Commentaire> commentaires,Categorie categorie) {
-		super();
+			Categorie categorieId) {
+		
 		this.nom = nom;
 		this.description = description;
 		this.prix = prix;
 		this.remise = remise;
 		this.stock = stock;
-		this.commentaires = commentaires;
-		this.categorie = categorie;
+		
+		this.categorieId = categorieId;
 	}
 
 
@@ -152,13 +151,31 @@ public class Article implements Serializable{
 	}
 
 
-	@Override
-	public String toString() {
-		return "Article [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", remise="
-				+ remise + ", stock=" + stock + ", commentaires=" + commentaires + "]";
+
+	public Categorie getCategorieId() {
+		return categorieId;
 	}
 
 
-		
+	public void setCategorieId(Categorie categorieId) {
+		this.categorieId = categorieId;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", nom=" + nom + ", description=" + description + ", prix=" + prix + ", remise="
+				+ remise + ", stock=" + stock + ", commentaires=" + commentaires + ", categorie=" + categorieId + "]";
+	}
+
+
+
+	
+	
+	
+	
+	
+	
+	
 	
 }
